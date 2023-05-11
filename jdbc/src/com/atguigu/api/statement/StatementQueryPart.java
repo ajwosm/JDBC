@@ -5,8 +5,9 @@ import com.mysql.cj.jdbc.Driver;
 import java.sql.*;
 
 /**
- * @author cheng
- * 使用statement查询t_user表下的全部数据
+ * @author  cheng
+ * <P>
+ * Description: 使用statement查询t_user表下的全部数据
  */
 public class StatementQueryPart {
     /**
