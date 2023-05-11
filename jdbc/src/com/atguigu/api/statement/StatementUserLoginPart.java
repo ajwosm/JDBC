@@ -1,7 +1,7 @@
 package com.atguigu.api.statement;
 
 import java.sql.*;
-import java.util.Properties;
+
 import java.util.Scanner;
 
 /**
@@ -115,12 +115,12 @@ public class StatementUserLoginPart {
         *                    携带固定的参数名 user password 传递账号和密码信息！
         *
         * */
-        Connection connection = DriverManager.getConnection("jdbc:mysql:///sys","root","123456");
-
-        Properties info = new Properties();
-        info.put("user","root");
-        info.put("password","123456");
-        Connection connection1 = DriverManager.getConnection("jdbc:mysql:///sys",info);
+//        Connection connection = DriverManager.getConnection("jdbc:mysql:///sys","root","123456");
+//
+//        Properties info = new Properties();
+//        info.put("user","root");
+//        info.put("password","123456");
+//        Connection connection1 = DriverManager.getConnection("jdbc:mysql:///sys",info);
 
         Connection connection2 = DriverManager.getConnection("jdbc:mysql:///sys?user=root&password=123456");
 
@@ -130,8 +130,9 @@ public class StatementUserLoginPart {
 
         //4.发送sql语句（1.编写sql语句2.发送sql语句）
         String sql = "select * from t_user where account = '"+account+"' and password = '"+password+"';";
+       // String sql = "select * from stu;";
 
-        statement.executeUpdate(sql);
+        //statement.executeUpdate(sql);
         /*
         * SQL分类：DDL(容器创建，修改，删除) DML（插入，修改，删除） DCL（查询） DCL（权限控制） TPL（事务控制语言）
         *
@@ -181,14 +182,29 @@ public class StatementUserLoginPart {
         *       columnIndex:列的下角标获取 从左向右 从1 开始
         *
         * */
-        while(resultSet.next()){
+        /*while(resultSet.next()){
             //指定当前行
             int id = resultSet.getInt(1);
             String account1 = resultSet.getString("account");
             String password1 = resultSet.getString(3);
             String nickname = resultSet.getString("nickname");
             System.out.println(id+"--"+account1+"--"+password1+"--"+nickname);
+        }*/
+        //移动一次光标只要有数据，就代表登录成功！
+        if(resultSet.next()) {
+            System.out.println("登录成功");
+        }else {
+            System.out.println("登录失败");
         }
+//        while (resultSet.next()){
+//            int id = resultSet.getInt("id");
+//            String name = resultSet.getString("name");
+//            System.out.println(id+"--"+name);
+//        }
+        //6.关闭资源
+            resultSet.close();
+            statement.close();
+            connection2.close();
 
     }
 }
